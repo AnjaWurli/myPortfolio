@@ -82,9 +82,13 @@
         </div>
       </section>
     </div>
-    <div class="scroll-stop">
+    <div class="scroll-stop about_samples">
       <router-view class="sample_tictac">
         <tic-tac-toe-view />
+        <color-mixer-view />
+        <counter-view />
+        <password-check-view />
+        <todo-view />
       </router-view>
     </div>
   </div>
@@ -92,8 +96,18 @@
 
 <script>
 import TicTacToeView from "./TicTacToeView.vue";
+import ColorMixerView from "./ColorMixerView.vue";
+import CounterView from "./CounterView.vue";
+import PasswordCheckView from "./PasswordCheckView.vue";
+import TodoView from "./TodoView.vue";
 export default {
-  components: { TicTacToeView },
+  components: {
+    TicTacToeView,
+    ColorMixerView,
+    CounterView,
+    PasswordCheckView,
+    TodoView,
+  },
 };
 </script>
 
@@ -107,17 +121,17 @@ export default {
   height: 100vh;
   overflow: scroll;
   scroll-snap-type: y mandatory;
+  scroll-padding: 2.5vh;
 }
 
 .scroll-stop {
   scroll-snap-stop: always;
-  scroll-snap-align: end;
+  scroll-snap-align: start;
 }
 
 .about_pic-wrapper {
   position: relative;
   width: 30vw;
-  display: inline-block;
   margin-left: 5vw;
   margin-top: 2.5vh;
 }
@@ -242,8 +256,8 @@ export default {
   margin: 0.2rem;
 }
 
-.sample_tictac {
-  -position: relative;
-  width: 10vw;
+.about_samples {
+  grid-column: 1 / span2;
+  display: grid;
 }
 </style>

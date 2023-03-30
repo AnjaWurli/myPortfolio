@@ -28,9 +28,12 @@
             v-model="b"
           />
         </form>
-        <button class="colormixer-button" @click="randomColor">
-          Random Color
-        </button>
+        <div>
+          <button class="colormixer-button" @click="randomColor">
+            Random Color
+          </button>
+          <span v-show="loading" class="rotate-center">&#10061;</span>
+        </div>
       </nav>
       <p>{{ rgbToHex }}</p>
     </header>
@@ -44,6 +47,7 @@ export default {
       r: 255,
       g: 150,
       b: 180,
+      loading: false,
     };
   },
   computed: {
@@ -60,12 +64,15 @@ export default {
       }
     },
     async randomColor() {
+      this.loading = true;
       const response = await fetch("https://dummy-apis.netlify.app/api/color");
       const data = await response.json();
 
       this.r = data.rgb.r;
       this.g = data.rgb.g;
       this.b = data.rgb.b;
+
+      this.loading = false;
     },
   },
 };
@@ -75,6 +82,7 @@ export default {
   height: 85vh;
   font-family: monospace;
   color: black;
+  container-type: inline-size;
 }
 
 .colormixer-header {
@@ -92,7 +100,7 @@ export default {
   gap: 1rem;
 }
 
-@media screen and (max-width: 800px) {
+@container (max-width: 800px) {
   .colormixer-nav {
     display: flex;
     flex-direction: column;
@@ -131,5 +139,20 @@ export default {
 }
 .colormixer-button:active {
   border-color: dodgerblue;
+}
+
+@keyframes rotate-center {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.rotate-center {
+  animation: rotate-center 0.4s ease-in-out infinite both;
+  display: inline-block;
+  translate: 50% 45%;
+  opacity: 0.5;
 }
 </style>

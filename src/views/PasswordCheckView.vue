@@ -104,6 +104,7 @@ export default {
   margin: 0;
   background-color: lightsalmon;
   font-family: "Open Sans", sans-serif;
+  container-type: inline-size;
 }
 
 .pw-check_h1 {
@@ -142,7 +143,7 @@ export default {
   background-color: black;
   color: white;
 }
-@media screen and (min-width: 700px) {
+@container (min-width: 700px) {
   .pw-check_body {
     display: grid;
     grid-template-columns: 1fr max-content;
