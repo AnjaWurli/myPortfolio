@@ -1,81 +1,92 @@
 <template>
   <div class="about">
-    <div class="about_pic-wrapper">
+    <div class="about_pic-wrapper scroll-stop">
       <div class="about_pic-turner">
         <div class="about_pic"></div>
         <div class="about_pic-other"></div>
       </div>
     </div>
     <div class="about_main">
-      <section class="about_section">
-        <h2>About me</h2>
-        <em>28 Jahre / Leipzig / Junior Front End Developer</em>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam
-          quos voluptatum voluptate nostrum doloremque mollitia enim incidunt
-          eaque dolore repudiandae quam obcaecati, non commodi corrupti harum
-          veniam alias autem.
-        </p>
+      <section class="about_section-wrapper">
+        <div class="about_section">
+          <h2>About me</h2>
+          <em>28 Jahre / Leipzig / Junior Front End Developer</em>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam
+            quos voluptatum voluptate nostrum doloremque mollitia enim incidunt
+            eaque dolore repudiandae quam obcaecati, non commodi corrupti harum
+            veniam alias autem.
+          </p>
+        </div>
       </section>
-      <section class="about_section">
-        <h2>Skills</h2>
-        <section class="about_section-inner">
-          <h3>Hard</h3>
+
+      <section class="about_section-wrapper">
+        <div class="about_section">
+          <h2>Skills</h2>
+          <div class="about_section-inner">
+            <h3>Hard</h3>
+            <ul class="about_ul">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+              <li>Vue 3</li>
+              <li>Git</li>
+              <li>Cypress</li>
+              <li>Jest</li>
+              <li>NPM</li>
+              <li>Node</li>
+              <li>VS Code</li>
+              <li>REST API</li>
+            </ul>
+          </div>
+          <div class="about_section-inner">
+            <h3>Soft</h3>
+            <ul class="about_ul">
+              <li>Kommunikation</li>
+              <li>Problemlösung</li>
+              <li>Scrum</li>
+              <li>Teamfähigkeit</li>
+              <li>Selbstreflexion</li>
+              <li>Improvisationstalent</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="about_section-wrapper about_section-small">
+        <div class="about_section">
+          <h2>Hobbies</h2>
           <ul class="about_ul">
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>JavaScript</li>
-            <li>Vue 3</li>
-            <li>Git</li>
-            <li>Cypress</li>
-            <li>Jest</li>
-            <li>NPM</li>
-            <li>Node</li>
-            <li>VS Code</li>
-            <li>REST API</li>
+            <li>Modeln</li>
+            <li>Fitness</li>
+            <li>Musik</li>
+            <li>Jornaling</li>
           </ul>
-        </section>
-        <section class="about_section-inner">
-          <h3>Soft</h3>
+        </div>
+      </section>
+      <section class="about_section-wrapper about_section-small">
+        <div class="about_section">
+          <h2>Sprachen</h2>
           <ul class="about_ul">
-            <li>Kommunikation</li>
-            <li>Problemlösung</li>
-            <li>Scrum</li>
-            <li>Teamfähigkeit</li>
-            <li>Selbstreflexion</li>
-            <li>Improvisationstalent</li>
+            <li>Deutsch <small>Muttersprache</small></li>
+            <li>Englisch <small>B2</small></li>
           </ul>
-        </section>
+        </div>
       </section>
-      <section class="about_section about_section-small">
-        <h2>Hobbies</h2>
-        <ul class="about_ul">
-          <li>Modeln</li>
-          <li>Fitness</li>
-          <li>Musik</li>
-          <li>Jornaling</li>
-        </ul>
-      </section>
-      <section class="about_section about_section-small">
-        <h2>Sprachen</h2>
-        <ul class="about_ul">
-          <li>Deutsch <small>Muttersprache</small></li>
-          <li>Englisch <small>B2</small></li>
-        </ul>
-      </section>
-      <section class="about_section about_section-small">
-        <h2>Führerscheine</h2>
-        <ul class="about_ul">
-          <li>Klasse B <small>2013</small></li>
-          <li>Flurmittelförderschein <small>2020</small></li>
-        </ul>
+      <section class="about_section-wrapper about_section-small">
+        <div class="about_section">
+          <h2>Führerscheine</h2>
+          <ul class="about_ul">
+            <li>Klasse B <small>2013</small></li>
+            <li>Flurmittelförderschein <small>2020</small></li>
+          </ul>
+        </div>
       </section>
     </div>
-    <section>
+    <div class="scroll-stop">
       <router-view class="sample_tictac">
         <tic-tac-toe-view />
       </router-view>
-    </section>
+    </div>
   </div>
 </template>
 
@@ -90,14 +101,25 @@ export default {
 .about {
   display: grid;
   grid-template-columns: 35vw 65vw;
+  grid-template-rows: 1fr 1fr;
+  row-gap: 1rem;
+
+  height: 100vh;
+  overflow: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+.scroll-stop {
+  scroll-snap-stop: always;
+  scroll-snap-align: end;
 }
 
 .about_pic-wrapper {
   position: relative;
   width: 30vw;
   display: inline-block;
-  left: 5vw;
-  top: 2.5vh;
+  margin-left: 5vw;
+  margin-top: 2.5vh;
 }
 
 .about_pic-turner {
@@ -134,7 +156,6 @@ export default {
   background-image: url("../assets/me1.png");
   width: 30vw;
   height: 95vh;
-  _aspect-ratio: 1;
   background-size: cover;
   background-repeat: no-repeat;
   _background-position: 0% 0%;
@@ -156,16 +177,25 @@ export default {
 .about_main {
   margin: 5vw 2.5vw;
   position: relative;
-  _left: 35vw;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: start;
   height: 85vh;
   overflow: scroll;
+  scroll-snap-type: y mandatory;
 }
 
 .about_main > :not(.about_section-small) {
   grid-column: 1 / span3;
+}
+
+.about_main::-webkit-scrollbar {
+  _border: 2px solid red;
+}
+
+.about_section-wrapper {
+  scroll-snap-stop: always;
+  scroll-snap-align: start;
 }
 
 .about_section,
@@ -180,9 +210,10 @@ export default {
 .about_section {
   display: grid;
   grid-template-columns: 50% 50%;
+  margin: 20vh 0;
 }
 
-.about_section :not(section) {
+.about_section :not(.about_section-inner) {
   grid-column: 1 / span2;
 }
 .about_section .about_section-inner {
