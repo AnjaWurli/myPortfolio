@@ -72,36 +72,26 @@
         </div>
       </section>
     </div>
-    <div class="scroll-stop about_samples">
-      <router-view>
-        <label v-for="compName of compNames" :key="compName" :for="compName">
-          <input
-            type="radio"
-            name="selectSample"
-            :id="compName"
-            class="about_sample-radio"
-            :value="compName"
-            @change="currentSample = false"
-          />
-          <div class="about_sample-wrapper">
-            <div class="about_sample-shadow"></div>
-            <component :is="compName" class="about_sample-sample" />
-            <div class="about_sample-close" @click="currentSample = true">
-              x
-            </div>
-          </div>
-        </label>
-        <label for="hi">
-          <input
-            type="radio"
-            name="selectSample"
-            id="hi"
-            value="hi"
-            v-model="currentSample"
-          />
-          <p>hi</p>
-        </label>
-      </router-view>
+    <div class="scroll-stop2 about_samples">
+      <label
+        v-for="compName of compNames"
+        :key="compName"
+        :for="compName"
+        class="about_sample-label"
+      >
+        <input
+          type="radio"
+          name="selectSample"
+          :id="compName"
+          class="about_sample-radio"
+          v-model="currentSample"
+        />
+        <div class="about_sample-wrapper">
+          <div class="about_sample-shadow"></div>
+          <component :is="compName" class="about_sample-sample" />
+          <div class="about_sample-close" @click="currentSample = false">x</div>
+        </div>
+      </label>
     </div>
   </div>
 </template>
@@ -178,10 +168,13 @@ export default {
   height: 100vh;
   overflow: scroll;
   scroll-snap-type: y mandatory;
-  scroll-padding: 10vh;
 }
 
 .scroll-stop {
+  scroll-snap-stop: normal;
+  scroll-snap-align: end;
+}
+.scroll-stop2 {
   scroll-snap-stop: normal;
   scroll-snap-align: start;
 }
@@ -217,7 +210,6 @@ export default {
       10rem 3rem,
   background-repeat: no-repeat;
   background-size: 470px 470px, 410px 410px, 100% 100%;*/
-  _border-radius: 2rem;
   transition: transform 0.6s;
   transform-style: preserve-3d;
 }
@@ -266,8 +258,8 @@ export default {
 
 .about_section-wrapper {
   scroll-snap-stop: normal;
-  scroll-snap-align: start;
-  margin-top: 30vh;
+  scroll-snap-align: center;
+  margin-top: 100vh;
 }
 
 .about_section,
@@ -282,7 +274,6 @@ export default {
 .about_section {
   display: grid;
   grid-template-columns: 50% 50%;
-  margin: 10vh 0;
 }
 
 .about_section :not(.about_section-inner) {
@@ -320,18 +311,29 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+
+  height: 100vh;
+  overflow: scroll;
+  scroll-snap-type: y;
+  padding-block: 5rem;
+}
+
+.about_sample-label {
+  margin: 2rem;
+  _border: red solid 2px;
 }
 
 .about_sample-wrapper {
   width: 40vmax;
   height: 40vmin;
-  margin-top: 2rem;
-  _border: solid red 2px;
+  _margin-top: 2rem;
   position: relative;
+  _top: 20%;
   transform-origin: center right;
   transform: rotate3d(-1.5, -1, 0.3, 40deg);
   transform-style: preserve-3d;
   transition: transform 0.4s ease-in-out;
+  _translate: 0 20%;
   cursor: pointer;
 }
 
@@ -374,12 +376,13 @@ export default {
 }
 
 .about_sample-radio:checked ~ .about_sample-wrapper {
-  border: solid 2px red;
   transform: rotate3d(0, 0, 0, 0deg);
   width: 70vw;
   height: 70vh;
   margin: 4rem;
   cursor: auto;
+  scroll-snap-stop: normal;
+  scroll-snap-align: center;
 }
 
 .about_sample-radio:checked ~ .about_sample-wrapper > .about_sample-sample {
