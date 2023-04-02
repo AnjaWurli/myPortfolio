@@ -169,6 +169,7 @@ export default {
   .pw-check_body {
     display: grid;
     grid-template-columns: 1fr max-content;
+    grid-template-rows: 30vh max-content;
     justify-content: center;
     align-items: center;
   }

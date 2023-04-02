@@ -143,6 +143,7 @@ export default {
   color: white;
   background-color: var(--bg-color);
   padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 .ttt-square {
@@ -150,6 +151,7 @@ export default {
   border: 3px solid var(--border-color);
   transition: background-color 0.5s;
   text-align: center;
+  cursor: pointer;
 }
 
 .ttt-square:hover,
