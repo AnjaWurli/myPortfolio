@@ -26,28 +26,17 @@
           <div class="about_section-inner">
             <h3>Hard</h3>
             <ul class="about_ul">
-              <li>HTML</li>
-              <li>CSS</li>
-              <li>JavaScript</li>
-              <li>Vue 3</li>
-              <li>Git</li>
-              <li>Cypress</li>
-              <li>Jest</li>
-              <li>NPM</li>
-              <li>Node</li>
-              <li>VS Code</li>
-              <li>REST API</li>
+              <li v-for="hardSkill of skills.hard" :key="hardSkill">
+                {{ hardSkill }}
+              </li>
             </ul>
           </div>
           <div class="about_section-inner">
             <h3>Soft</h3>
             <ul class="about_ul">
-              <li>Kommunikation</li>
-              <li>Problemlösung</li>
-              <li>Scrum</li>
-              <li>Teamfähigkeit</li>
-              <li>Selbstreflexion</li>
-              <li>Improvisationstalent</li>
+              <li v-for="softSkill of skills.soft" :key="softSkill">
+                {{ softSkill }}
+              </li>
             </ul>
           </div>
         </div>
@@ -56,10 +45,9 @@
         <div class="about_section">
           <h2>Hobbies</h2>
           <ul class="about_ul">
-            <li>Modeln</li>
-            <li>Fitness</li>
-            <li>Musik</li>
-            <li>Jornaling</li>
+            <li v-for="hobby of hobbies" :key="hobby">
+              {{ hobby }}
+            </li>
           </ul>
         </div>
       </section>
@@ -67,8 +55,9 @@
         <div class="about_section">
           <h2>Sprachen</h2>
           <ul class="about_ul">
-            <li>Deutsch <small>Muttersprache</small></li>
-            <li>Englisch <small>B2</small></li>
+            <li v-for="(level, language) in languages" :key="language">
+              {{ language }} <small>{{ level }}</small>
+            </li>
           </ul>
         </div>
       </section>
@@ -76,93 +65,30 @@
         <div class="about_section">
           <h2>Führerscheine</h2>
           <ul class="about_ul">
-            <li>Klasse B <small>2013</small></li>
-            <li>Flurmittelförderschein <small>2020</small></li>
+            <li v-for="(year, licence) in licences" :key="licence">
+              {{ licence }} <small>{{ year }}</small>
+            </li>
           </ul>
         </div>
       </section>
     </div>
     <div class="scroll-stop about_samples">
       <router-view>
-        <label for="tictactoe">
+        <label v-for="compName of compNames" :key="compName" :for="compName">
           <input
             type="radio"
             name="selectSample"
-            id="tictactoe"
+            :id="compName"
             class="about_sample-radio"
-            value="tictactoe"
+            :value="compName"
             @change="currentSample = false"
           />
           <div class="about_sample-wrapper">
             <div class="about_sample-shadow"></div>
-            <tic-tac-toe-view class="about_sample-sample" />
+            <component :is="compName" class="about_sample-sample" />
             <div class="about_sample-close" @click="currentSample = true">
               x
             </div>
-          </div>
-        </label>
-        <label for="colormixer">
-          <input
-            type="radio"
-            name="selectSample"
-            id="colormixer"
-            class="about_sample-radio"
-            value="colormixer"
-            @change="currentSample = false"
-          />
-          <div class="about_sample-wrapper">
-            <div class="about_sample-shadow"></div>
-            <color-mixer-view class="about_sample-sample" />
-            <div class="about_sample-close" @click="currentSample = true">
-              x
-            </div>
-          </div>
-        </label>
-        <label for="counter">
-          <input
-            type="radio"
-            name="selectSample"
-            id="counter"
-            class="about_sample-radio"
-            value="counter"
-            @change="currentSample = false"
-          />
-          <div class="about_sample-wrapper">
-            <div class="about_sample-shadow"></div>
-            <counter-view class="about_sample-sample" />
-            <div class="about_sample-close" @click="currentSample = true">
-              x
-            </div>
-          </div>
-        </label>
-        <label for="passwordcheck">
-          <input
-            type="radio"
-            name="selectSample"
-            id="passwordcheck"
-            class="about_sample-radio"
-            value="passwordcheck"
-            @change="currentSample = false"
-          />
-          <div class="about_sample-wrapper">
-            <div class="about_sample-shadow"></div>
-            <password-check-view class="about_sample-sample" />
-            <div class="about_sample-close">x</div>
-          </div>
-        </label>
-        <label for="todo">
-          <input
-            type="radio"
-            name="selectSample"
-            id="todo"
-            class="about_sample-radio"
-            value="todo"
-            @change="currentSample = false"
-          />
-          <div class="about_sample-wrapper">
-            <div class="about_sample-shadow"></div>
-            <todo-view class="about_sample-sample" />
-            <div class="about_sample-close">x</div>
           </div>
         </label>
         <label for="hi">
@@ -197,6 +123,38 @@ export default {
   },
   data() {
     return {
+      skills: {
+        hard: [
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "Vue 3",
+          "Git",
+          "Cypress",
+          "Jest",
+          "NPM",
+          "Node",
+          "VS Code",
+          "REST API",
+        ],
+        soft: [
+          "Kommunikation",
+          "Problemlösung",
+          "Scrum",
+          "Teamfähigkeit",
+          "Selbstreflexion",
+          "Improvisationstalent",
+        ],
+      },
+      hobbies: ["Modeln", "Fitness", "Musik", "Jornaling"],
+      languages: {
+        Deutsch: "Muttersprache",
+        Englisch: "B2",
+      },
+      licences: {
+        "Klasse B": "2013",
+        Flurmittelförderschein: "2020",
+      },
       currentSample: true,
       compNames: [
         "TicTacToeView",
