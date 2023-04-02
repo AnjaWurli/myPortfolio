@@ -84,26 +84,97 @@
     </div>
     <div class="scroll-stop about_samples">
       <router-view>
-        <div class="about_sample-wrapper">
-          <div class="about_sample-shadow"></div>
-          <tic-tac-toe-view />
-        </div>
-        <div class="about_sample-wrapper">
-          <div class="about_sample-shadow"></div>
-          <color-mixer-view />
-        </div>
-        <div class="about_sample-wrapper">
-          <div class="about_sample-shadow"></div>
-          <counter-view />
-        </div>
-        <div class="about_sample-wrapper">
-          <div class="about_sample-shadow"></div>
-          <password-check-view />
-        </div>
-        <div class="about_sample-wrapper">
-          <div class="about_sample-shadow"></div>
-          <todo-view />
-        </div>
+        <label for="tictactoe">
+          <input
+            type="radio"
+            name="selectSample"
+            id="tictactoe"
+            class="about_sample-radio"
+            value="tictactoe"
+            @change="currentSample = false"
+          />
+          <div class="about_sample-wrapper">
+            <div class="about_sample-shadow"></div>
+            <tic-tac-toe-view class="about_sample-sample" />
+            <div class="about_sample-close" @click="currentSample = true">
+              x
+            </div>
+          </div>
+        </label>
+        <label for="colormixer">
+          <input
+            type="radio"
+            name="selectSample"
+            id="colormixer"
+            class="about_sample-radio"
+            value="colormixer"
+            @change="currentSample = false"
+          />
+          <div class="about_sample-wrapper">
+            <div class="about_sample-shadow"></div>
+            <color-mixer-view class="about_sample-sample" />
+            <div class="about_sample-close" @click="currentSample = true">
+              x
+            </div>
+          </div>
+        </label>
+        <label for="counter">
+          <input
+            type="radio"
+            name="selectSample"
+            id="counter"
+            class="about_sample-radio"
+            value="counter"
+            @change="currentSample = false"
+          />
+          <div class="about_sample-wrapper">
+            <div class="about_sample-shadow"></div>
+            <counter-view class="about_sample-sample" />
+            <div class="about_sample-close" @click="currentSample = true">
+              x
+            </div>
+          </div>
+        </label>
+        <label for="passwordcheck">
+          <input
+            type="radio"
+            name="selectSample"
+            id="passwordcheck"
+            class="about_sample-radio"
+            value="passwordcheck"
+            @change="currentSample = false"
+          />
+          <div class="about_sample-wrapper">
+            <div class="about_sample-shadow"></div>
+            <password-check-view class="about_sample-sample" />
+            <div class="about_sample-close">x</div>
+          </div>
+        </label>
+        <label for="todo">
+          <input
+            type="radio"
+            name="selectSample"
+            id="todo"
+            class="about_sample-radio"
+            value="todo"
+            @change="currentSample = false"
+          />
+          <div class="about_sample-wrapper">
+            <div class="about_sample-shadow"></div>
+            <todo-view class="about_sample-sample" />
+            <div class="about_sample-close">x</div>
+          </div>
+        </label>
+        <label for="hi">
+          <input
+            type="radio"
+            name="selectSample"
+            id="hi"
+            value="hi"
+            v-model="currentSample"
+          />
+          <p>hi</p>
+        </label>
       </router-view>
     </div>
   </div>
@@ -115,6 +186,7 @@ import ColorMixerView from "./ColorMixerView.vue";
 import CounterView from "./CounterView.vue";
 import PasswordCheckView from "./PasswordCheckView.vue";
 import TodoView from "./TodoView.vue";
+
 export default {
   components: {
     TicTacToeView,
@@ -123,6 +195,18 @@ export default {
     PasswordCheckView,
     TodoView,
   },
+  data() {
+    return {
+      currentSample: true,
+      compNames: [
+        "TicTacToeView",
+        "ColorMixerView",
+        "CounterView",
+        "PasswordCheckView",
+        "TodoView",
+      ],
+    };
+  },
 };
 </script>
 
@@ -130,17 +214,17 @@ export default {
 .about {
   display: grid;
   grid-template-columns: 35vw 65vw;
-  grid-template-rows: 1fr 1fr;
-  row-gap: 1rem;
+  grid-template-rows: 1fr 3fr;
+  row-gap: 5rem;
 
   height: 100vh;
   overflow: scroll;
   scroll-snap-type: y mandatory;
-  scroll-padding: 2.5vh;
+  scroll-padding: 10vh;
 }
 
 .scroll-stop {
-  scroll-snap-stop: always;
+  scroll-snap-stop: normal;
   scroll-snap-align: start;
 }
 
@@ -204,7 +288,7 @@ export default {
 }
 
 .about_main {
-  margin: 5vw 2.5vw;
+  margin: 2.5vw 2.5vw;
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -225,6 +309,7 @@ export default {
 .about_section-wrapper {
   scroll-snap-stop: normal;
   scroll-snap-align: start;
+  margin-top: 30vh;
 }
 
 .about_section,
@@ -239,7 +324,7 @@ export default {
 .about_section {
   display: grid;
   grid-template-columns: 50% 50%;
-  margin: 20vh 0;
+  margin: 10vh 0;
 }
 
 .about_section :not(.about_section-inner) {
@@ -268,7 +353,7 @@ export default {
 
 .about_section-small {
   align-content: start;
-  margin: 0.2rem;
+  margin-inline: 0.2rem;
 }
 
 .about_samples {
@@ -282,11 +367,18 @@ export default {
 .about_sample-wrapper {
   width: 40vmax;
   height: 40vmin;
-  margin-top: 1rem;
-  border: solid red 2px;
+  margin-top: 2rem;
+  _border: solid red 2px;
   position: relative;
+  transform-origin: center right;
   transform: rotate3d(-1.5, -1, 0.3, 40deg);
   transform-style: preserve-3d;
+  transition: transform 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+.about_sample-wrapper:hover {
+  transform: rotate3d(-1.5, -1, 0.2, 30deg) scale(1.05);
 }
 
 .about_sample-shadow {
@@ -301,7 +393,7 @@ export default {
   position: relative;
 }
 
-.about_sample-wrapper > :not(.about_sample-shadow) {
+.about_sample-sample {
   transform-origin: 0% 0%;
   width: 100vmax;
   height: 100vmin;
@@ -310,5 +402,49 @@ export default {
   top: 0;
   left: 0;
   overflow: hidden;
+  opacity: 0.8;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.about_sample-wrapper:hover > .about_sample-sample {
+  opacity: 1;
+}
+
+.about_sample-radio {
+  display: none;
+}
+
+.about_sample-radio:checked ~ .about_sample-wrapper {
+  border: solid 2px red;
+  transform: rotate3d(0, 0, 0, 0deg);
+  width: 70vw;
+  height: 70vh;
+  margin: 4rem;
+  cursor: auto;
+}
+
+.about_sample-radio:checked ~ .about_sample-wrapper > .about_sample-sample {
+  overflow: auto;
+  scale: 0.7;
+  opacity: 1;
+  pointer-events: all;
+}
+.about_sample-close {
+  display: none;
+}
+.about_sample-radio:checked ~ .about_sample-wrapper > .about_sample-close {
+  display: block;
+  color: white;
+  background-color: black;
+  opacity: 0.8;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  outline: 2px solid white;
+  border-radius: 100%;
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  cursor: pointer;
 }
 </style>
