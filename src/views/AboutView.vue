@@ -83,12 +83,27 @@
       </section>
     </div>
     <div class="scroll-stop about_samples">
-      <router-view class="sample_tictac">
-        <tic-tac-toe-view />
-        <color-mixer-view />
-        <counter-view />
-        <password-check-view />
-        <todo-view />
+      <router-view>
+        <div class="about_sample-wrapper">
+          <div class="about_sample-shadow"></div>
+          <tic-tac-toe-view />
+        </div>
+        <div class="about_sample-wrapper">
+          <div class="about_sample-shadow"></div>
+          <color-mixer-view />
+        </div>
+        <div class="about_sample-wrapper">
+          <div class="about_sample-shadow"></div>
+          <counter-view />
+        </div>
+        <div class="about_sample-wrapper">
+          <div class="about_sample-shadow"></div>
+          <password-check-view />
+        </div>
+        <div class="about_sample-wrapper">
+          <div class="about_sample-shadow"></div>
+          <todo-view />
+        </div>
       </router-view>
     </div>
   </div>
@@ -208,7 +223,7 @@ export default {
 }
 
 .about_section-wrapper {
-  scroll-snap-stop: always;
+  scroll-snap-stop: normal;
   scroll-snap-align: start;
 }
 
@@ -258,6 +273,42 @@ export default {
 
 .about_samples {
   grid-column: 1 / span2;
-  display: grid;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.about_sample-wrapper {
+  width: 40vmax;
+  height: 40vmin;
+  margin-top: 1rem;
+  border: solid red 2px;
+  position: relative;
+  transform: rotate3d(-1.5, -1, 0.3, 40deg);
+  transform-style: preserve-3d;
+}
+
+.about_sample-shadow {
+  width: inherit;
+  height: inherit;
+  background: black;
+  opacity: 0.5;
+  filter: blur(1rem);
+  transform-origin: bottom center;
+  transform: rotateX(90deg);
+  translate: 0rem 2rem -2rem;
+  position: relative;
+}
+
+.about_sample-wrapper > :not(.about_sample-shadow) {
+  transform-origin: 0% 0%;
+  width: 100vmax;
+  height: 100vmin;
+  scale: 0.4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
 }
 </style>
