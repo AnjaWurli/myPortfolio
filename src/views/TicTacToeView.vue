@@ -1,18 +1,20 @@
 <template>
-  <main class="ttt-body">
-    <h1 class="ttt-h1">{{ gamer }}</h1>
+  <body>
+    <main class="ttt-body">
+      <h1 class="ttt-h1">{{ gamer }}</h1>
 
-    <div
-      v-for="n in 9"
-      :key="n"
-      class="ttt-square"
-      :id="'s' + n"
-      @click="set"
-    ></div>
+      <div
+        v-for="n in 9"
+        :key="n"
+        class="ttt-square"
+        :id="'s' + n"
+        @click="set"
+      ></div>
 
-    <button class="ttt-button" @click="reset">New Game</button>
-    <div class="ttt-box"></div>
-  </main>
+      <button class="ttt-button" @click="reset">New Game</button>
+      <div class="ttt-box"></div>
+    </main>
+  </body>
 </template>
 
 <script>
@@ -118,7 +120,6 @@ export default {
 
   display: grid;
   grid-template-columns: repeat(3, 20vmin);
-  grid-template-rows: 15vmin, repeat(3, 20vmin), 10vmin;
   justify-content: center;
   align-content: center;
   position: relative;
@@ -143,13 +144,15 @@ export default {
   color: white;
   background-color: var(--bg-color);
   padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 .ttt-square {
   aspect-ratio: 1/1;
-  border: 3px solid var(--border-color);
+  border: 0.3vmin solid var(--border-color);
   transition: background-color 0.5s;
   text-align: center;
+  cursor: pointer;
 }
 
 .ttt-square:hover,
@@ -159,7 +162,7 @@ export default {
 
 .ttt-box {
   position: absolute;
-  outline: 8px solid var(--bg-color);
+  outline: 4vmin solid var(--bg-color);
   width: 58vmin;
   height: 58vmin;
   top: 15vmin;

@@ -26,28 +26,17 @@
           <div class="about_section-inner">
             <h3>Hard</h3>
             <ul class="about_ul">
-              <li>HTML</li>
-              <li>CSS</li>
-              <li>JavaScript</li>
-              <li>Vue 3</li>
-              <li>Git</li>
-              <li>Cypress</li>
-              <li>Jest</li>
-              <li>NPM</li>
-              <li>Node</li>
-              <li>VS Code</li>
-              <li>REST API</li>
+              <li v-for="hardSkill of skills.hard" :key="hardSkill">
+                {{ hardSkill }}
+              </li>
             </ul>
           </div>
           <div class="about_section-inner">
             <h3>Soft</h3>
             <ul class="about_ul">
-              <li>Kommunikation</li>
-              <li>Problemlösung</li>
-              <li>Scrum</li>
-              <li>Teamfähigkeit</li>
-              <li>Selbstreflexion</li>
-              <li>Improvisationstalent</li>
+              <li v-for="softSkill of skills.soft" :key="softSkill">
+                {{ softSkill }}
+              </li>
             </ul>
           </div>
         </div>
@@ -56,10 +45,9 @@
         <div class="about_section">
           <h2>Hobbies</h2>
           <ul class="about_ul">
-            <li>Modeln</li>
-            <li>Fitness</li>
-            <li>Musik</li>
-            <li>Jornaling</li>
+            <li v-for="hobby of hobbies" :key="hobby">
+              {{ hobby }}
+            </li>
           </ul>
         </div>
       </section>
@@ -67,8 +55,9 @@
         <div class="about_section">
           <h2>Sprachen</h2>
           <ul class="about_ul">
-            <li>Deutsch <small>Muttersprache</small></li>
-            <li>Englisch <small>B2</small></li>
+            <li v-for="(level, language) in languages" :key="language">
+              {{ language }} <small>{{ level }}</small>
+            </li>
           </ul>
         </div>
       </section>
@@ -76,24 +65,109 @@
         <div class="about_section">
           <h2>Führerscheine</h2>
           <ul class="about_ul">
-            <li>Klasse B <small>2013</small></li>
-            <li>Flurmittelförderschein <small>2020</small></li>
+            <li v-for="(year, licence) in licences" :key="licence">
+              {{ licence }} <small>{{ year }}</small>
+            </li>
           </ul>
         </div>
       </section>
     </div>
-    <div class="scroll-stop">
-      <router-view class="sample_tictac">
-        <tic-tac-toe-view />
-      </router-view>
+    <div class="scroll-stop2 about_samples">
+      <label
+        v-for="compName of compNames"
+        :key="compName"
+        :for="compName"
+        class="about_sample-label"
+        @click="scrollToElement(compName + '1')"
+        :id="compName + '1'"
+      >
+        <input
+          type="radio"
+          name="selectSample"
+          :id="compName"
+          class="about_sample-radio"
+          v-model="currentSample"
+        />
+        <div class="about_sample-wrapper">
+          <div class="about_sample-shadow"></div>
+          <component :is="compName" class="about_sample-sample" />
+          <div class="about_sample-close" @click="currentSample = false">x</div>
+        </div>
+      </label>
     </div>
   </div>
 </template>
 
 <script>
 import TicTacToeView from "./TicTacToeView.vue";
+import ColorMixerView from "./ColorMixerView.vue";
+import CounterView from "./CounterView.vue";
+import PasswordCheckView from "./PasswordCheckView.vue";
+import TodoView from "./TodoView.vue";
+
+import { ref } from "vue";
+
 export default {
-  components: { TicTacToeView },
+  components: {
+    TicTacToeView,
+    ColorMixerView,
+    CounterView,
+    PasswordCheckView,
+    TodoView,
+  },
+  data() {
+    return {
+      skills: {
+        hard: [
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "Vue 3",
+          "Git",
+          "Cypress",
+          "Jest",
+          "NPM",
+          "Node",
+          "VS Code",
+          "REST API",
+        ],
+        soft: [
+          "Kommunikation",
+          "Problemlösung",
+          "Scrum",
+          "Teamfähigkeit",
+          "Selbstreflexion",
+          "Improvisationstalent",
+        ],
+      },
+      hobbies: ["Modeln", "Fitness", "Musik", "Jornaling"],
+      languages: {
+        Deutsch: "Muttersprache",
+        Englisch: "B2",
+      },
+      licences: {
+        "Klasse B": "2013",
+        Flurmittelförderschein: "2020",
+      },
+      currentSample: false,
+      compNames: [
+        "TicTacToeView",
+        "ColorMixerView",
+        "CounterView",
+        "PasswordCheckView",
+        "TodoView",
+      ],
+    };
+  },
+  methods: {
+    scrollToElement(elId) {
+      if (this.currentSample) {
+        const el = document.getElementById(ref(elId).value);
+        el.scrollIntoView();
+        console.log(document.getElementById(ref(elId).value));
+      }
+    },
+  },
 };
 </script>
 
@@ -101,8 +175,8 @@ export default {
 .about {
   display: grid;
   grid-template-columns: 35vw 65vw;
-  grid-template-rows: 1fr 1fr;
-  row-gap: 1rem;
+  grid-template-rows: 1fr 3fr;
+  row-gap: 5rem;
 
   height: 100vh;
   overflow: scroll;
@@ -110,14 +184,17 @@ export default {
 }
 
 .scroll-stop {
-  scroll-snap-stop: always;
+  scroll-snap-stop: normal;
   scroll-snap-align: end;
+}
+.scroll-stop2 {
+  scroll-snap-stop: normal;
+  scroll-snap-align: start;
 }
 
 .about_pic-wrapper {
   position: relative;
   width: 30vw;
-  display: inline-block;
   margin-left: 5vw;
   margin-top: 2.5vh;
 }
@@ -146,7 +223,6 @@ export default {
       10rem 3rem,
   background-repeat: no-repeat;
   background-size: 470px 470px, 410px 410px, 100% 100%;*/
-  _border-radius: 2rem;
   transition: transform 0.6s;
   transform-style: preserve-3d;
 }
@@ -175,7 +251,7 @@ export default {
 }
 
 .about_main {
-  margin: 5vw 2.5vw;
+  margin: 2.5vw 2.5vw;
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -194,8 +270,9 @@ export default {
 }
 
 .about_section-wrapper {
-  scroll-snap-stop: always;
-  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  scroll-snap-align: center;
+  margin-top: 100vh;
 }
 
 .about_section,
@@ -210,7 +287,6 @@ export default {
 .about_section {
   display: grid;
   grid-template-columns: 50% 50%;
-  margin: 20vh 0;
 }
 
 .about_section :not(.about_section-inner) {
@@ -239,11 +315,112 @@ export default {
 
 .about_section-small {
   align-content: start;
-  margin: 0.2rem;
+  margin-inline: 0.2rem;
 }
 
-.sample_tictac {
-  -position: relative;
-  width: 10vw;
+.about_samples {
+  grid-column: 1 / span2;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  height: 100vh;
+  overflow: scroll;
+  padding-block: 5rem;
+}
+
+.about_sample-label {
+  margin: 2rem;
+}
+
+.about_sample-wrapper {
+  width: 40vmax;
+  height: 40vmin;
+  position: relative;
+  transform-origin: center right;
+  transform: rotate3d(-1.5, -1, 0.3, 40deg);
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+.about_sample-wrapper:hover {
+  transform: rotate3d(-1.5, -1, 0.2, 30deg) scale(1.05);
+}
+
+.about_sample-shadow {
+  width: inherit;
+  height: inherit;
+  background: black;
+  opacity: 0.5;
+  filter: blur(1rem);
+  transform-origin: bottom center;
+  transform: rotateX(90deg);
+  translate: 0rem 2rem -2rem;
+  position: relative;
+}
+
+.about_sample-sample {
+  transform-origin: 0% 0%;
+  max-width: 100vmax;
+  min-width: 100vw;
+  min-height: fit-content;
+  scale: 0.4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  opacity: 0.8;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.about_sample-wrapper:hover > .about_sample-sample {
+  opacity: 1;
+}
+
+.about_sample-radio {
+  display: none;
+}
+
+.about_sample-radio:checked ~ .about_sample-wrapper {
+  transform: rotate3d(0, 0, 0, 0deg);
+  width: 70vw;
+  height: 70vh;
+  margin: 4rem;
+
+  cursor: auto;
+}
+
+.about_sample-radio:checked ~ .about_sample-wrapper > .about_sample-sample {
+  overflow: auto;
+  scale: 0.7;
+  opacity: 1;
+  pointer-events: all;
+  _box-shadow: 2rem 1rem 5rem 0rem;
+}
+
+.about_sample-radio:checked ~ .about_sample-wrapper > .about_sample-shadow {
+  transform: rotateX(0deg);
+  translate: 2rem -1rem 0rem;
+  filter: blur(2rem);
+}
+.about_sample-close {
+  display: none;
+}
+.about_sample-radio:checked ~ .about_sample-wrapper > .about_sample-close {
+  display: block;
+  color: white;
+  background-color: black;
+  opacity: 0.8;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  outline: 2px solid white;
+  border-radius: 100%;
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  cursor: pointer;
 }
 </style>

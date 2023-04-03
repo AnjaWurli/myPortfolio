@@ -1,36 +1,38 @@
 <template>
-  <body class="pw-check_body">
-    <h1 class="pw-check_h1">Password Check</h1>
-    <form class="pw-check_form">
-      <input
-        data-cy="input1"
-        :type="passwordType[0].inputType"
-        v-model="word1"
-        @keyup="checkPassword"
-        class="pw-check_input"
-      />
-      <input
-        data-cy="input2"
-        :type="passwordType[0].inputType"
-        v-model="word2"
-        @keyup="checkPassword"
-        class="pw-check_input"
-      />
-      <button
-        data-cy="button"
-        @click.prevent="togglePassword"
-        class="pw-check_button"
-      >
-        {{ passwordType[0].buttonText }}
-      </button>
-    </form>
-    <section class="pw-check_section">
-      <p v-for="check of checks" :key="check.id" class="pw-check_p">
-        {{ check.description }}
-        <span :data-cy="check.id" :id="check.id"> {{ check.check }}</span>
-      </p>
-    </section>
-  </body>
+  <div class="pw-check_container">
+    <div class="pw-check_body">
+      <h1 class="pw-check_h1">Password Check</h1>
+      <form class="pw-check_form">
+        <input
+          data-cy="input1"
+          :type="passwordType[0].inputType"
+          v-model="word1"
+          @keyup="checkPassword"
+          class="pw-check_input"
+        />
+        <input
+          data-cy="input2"
+          :type="passwordType[0].inputType"
+          v-model="word2"
+          @keyup="checkPassword"
+          class="pw-check_input"
+        />
+        <button
+          data-cy="button"
+          @click.prevent="togglePassword"
+          class="pw-check_button"
+        >
+          {{ passwordType[0].buttonText }}
+        </button>
+      </form>
+      <section class="pw-check_section">
+        <p v-for="check of checks" :key="check.id" class="pw-check_p">
+          {{ check.description }}
+          <span :data-cy="check.id" :id="check.id"> {{ check.check }}</span>
+        </p>
+      </section>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -99,11 +101,15 @@ export default {
 </script>
 
 <style>
+.pw-check_container {
+  container-type: inline-size;
+}
 .pw-check_body {
-  font-size: 1.7rem;
+  font-size: 23px;
   margin: 0;
   background-color: lightsalmon;
   font-family: "Open Sans", sans-serif;
+  height: 85vh;
 }
 
 .pw-check_h1 {
@@ -112,6 +118,8 @@ export default {
   color: white;
   filter: drop-shadow(black 3px 3px);
   text-align: center;
+  margin: 0;
+  padding: 2rem;
 }
 
 .pw-check_p {
@@ -125,27 +133,43 @@ export default {
   margin: 2rem;
 }
 
+.pw-check_form {
+  padding-inline: 10%;
+}
+
 .pw-check_form > * {
   font-family: "Open Sans", sans-serif;
   border: 3px solid black;
   border-radius: 4px;
-  font-size: 0.9rem;
-  width: 40vw;
+  width: 100%;
 }
 
 .pw-check_input {
   font-size: 1.7rem;
-  width: 39vw;
+  text-align: center;
 }
 .pw-check_button {
   font-size: 1.7rem;
   background-color: black;
   color: white;
+  cursor: pointer;
+  width: 102%;
 }
-@media screen and (min-width: 700px) {
+
+@container (min-width: 550px) {
+  .pw-check_form {
+    padding-inline: 20%;
+  }
+  .pw-check_body {
+    font-size: 27px;
+  }
+}
+
+@container (min-width: 750px) {
   .pw-check_body {
     display: grid;
     grid-template-columns: 1fr max-content;
+    grid-template-rows: 30vh max-content;
     justify-content: center;
     align-items: center;
   }
@@ -153,11 +177,14 @@ export default {
     grid-column: span 2;
   }
 
+  .pw-check_form {
+    padding: 0;
+  }
   .pw-check_input {
-    width: 30vw;
+    max-width: 30rem;
   }
   .pw-check_button {
-    width: 31vw;
+    max-width: 30.5rem;
   }
 }
 </style>
