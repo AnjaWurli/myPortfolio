@@ -78,6 +78,8 @@
         :key="compName"
         :for="compName"
         class="about_sample-label"
+        @click="scrollToElement(compName + '1')"
+        :id="compName + '1'"
       >
         <input
           type="radio"
@@ -102,6 +104,8 @@ import ColorMixerView from "./ColorMixerView.vue";
 import CounterView from "./CounterView.vue";
 import PasswordCheckView from "./PasswordCheckView.vue";
 import TodoView from "./TodoView.vue";
+
+import { ref } from "vue";
 
 export default {
   components: {
@@ -145,7 +149,7 @@ export default {
         "Klasse B": "2013",
         Flurmittelförderschein: "2020",
       },
-      currentSample: true,
+      currentSample: false,
       compNames: [
         "TicTacToeView",
         "ColorMixerView",
@@ -154,6 +158,15 @@ export default {
         "TodoView",
       ],
     };
+  },
+  methods: {
+    scrollToElement(elId) {
+      if (this.currentSample) {
+        const el = document.getElementById(ref(elId).value);
+        el.scrollIntoView();
+        console.log(document.getElementById(ref(elId).value));
+      }
+    },
   },
 };
 </script>
@@ -314,26 +327,21 @@ export default {
 
   height: 100vh;
   overflow: scroll;
-  scroll-snap-type: y;
   padding-block: 5rem;
 }
 
 .about_sample-label {
   margin: 2rem;
-  _border: red solid 2px;
 }
 
 .about_sample-wrapper {
   width: 40vmax;
   height: 40vmin;
-  _margin-top: 2rem;
   position: relative;
-  _top: 20%;
   transform-origin: center right;
   transform: rotate3d(-1.5, -1, 0.3, 40deg);
   transform-style: preserve-3d;
   transition: transform 0.4s ease-in-out;
-  _translate: 0 20%;
   cursor: pointer;
 }
 
@@ -355,8 +363,9 @@ export default {
 
 .about_sample-sample {
   transform-origin: 0% 0%;
-  width: 100vmax;
-  height: 100vmin;
+  max-width: 100vmax;
+  min-width: 100vw;
+  min-height: fit-content;
   scale: 0.4;
   position: absolute;
   top: 0;
@@ -380,9 +389,8 @@ export default {
   width: 70vw;
   height: 70vh;
   margin: 4rem;
+
   cursor: auto;
-  scroll-snap-stop: normal;
-  scroll-snap-align: center;
 }
 
 .about_sample-radio:checked ~ .about_sample-wrapper > .about_sample-sample {
@@ -390,6 +398,13 @@ export default {
   scale: 0.7;
   opacity: 1;
   pointer-events: all;
+  _box-shadow: 2rem 1rem 5rem 0rem;
+}
+
+.about_sample-radio:checked ~ .about_sample-wrapper > .about_sample-shadow {
+  transform: rotateX(0deg);
+  translate: 2rem -1rem 0rem;
+  filter: blur(2rem);
 }
 .about_sample-close {
   display: none;
