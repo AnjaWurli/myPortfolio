@@ -7,18 +7,20 @@
           (click the white area or hit space / enter to count)
         </p>
       </section>
-      <div class="counter_rangeWrapper">
-        <label for="increaseBy">increase by: {{ increaseBy }}</label>
-        <input
-          id="increaseBy"
-          type="range"
-          min="1"
-          max="20"
-          v-model.number="increaseBy"
-          class="counter_range"
-        />
-      </div>
-      <button @click="reset" class="counter_button">Reset</button>
+      <section class="counter_inputWrapper">
+        <div class="counter_rangeWrapper">
+          <label for="increaseBy">increase by: {{ increaseBy }}</label>
+          <input
+            id="increaseBy"
+            type="range"
+            min="1"
+            max="20"
+            v-model.number="increaseBy"
+            class="counter_range"
+          />
+        </div>
+        <button @click="reset" class="counter_button">Reset</button>
+      </section>
     </header>
     <main
       @click="increaseCounter"
@@ -93,8 +95,15 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   padding: 1.5rem;
   font-size: 2rem;
+}
+
+.counter_inputWrapper {
+  flex-grow: 2;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .counter_p {

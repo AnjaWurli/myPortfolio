@@ -1,5 +1,5 @@
 <template>
-  <body>
+  <body class="ttt-container">
     <main class="ttt-body">
       <h1 class="ttt-h1">{{ gamer }}</h1>
 
@@ -109,6 +109,9 @@ export default {
 };
 </script>
 <style>
+.ttt-container {
+  container-type: inline-size;
+}
 .ttt-body {
   --bg-color: #072931;
   --border-color: #0d404c;
@@ -119,7 +122,7 @@ export default {
   margin: 0;
 
   display: grid;
-  grid-template-columns: repeat(3, 20vmin);
+  grid-template-columns: repeat(3, 30vmin);
   justify-content: center;
   align-content: center;
   position: relative;
@@ -149,7 +152,7 @@ export default {
 
 .ttt-square {
   aspect-ratio: 1/1;
-  border: 0.3vmin solid var(--border-color);
+  border: 0.4vmin solid var(--border-color);
   transition: background-color 0.5s;
   text-align: center;
   cursor: pointer;
@@ -163,20 +166,21 @@ export default {
 .ttt-box {
   position: absolute;
   outline: 4vmin solid var(--bg-color);
-  width: 58vmin;
-  height: 58vmin;
+  width: 88vmin;
+  height: 88vmin;
   top: 15vmin;
   left: 50%;
   translate: -50% -1.5vmin;
   pointer-events: none;
 }
 .ttt-span {
-  font-size: 15vmin;
+  font-size: 20vmin;
   display: block;
+  translate: 0 7%;
 }
 .circle {
   scale: 2;
-  translate: 0 -13%;
+  translate: 0 -5%;
 }
 
 .winner {
@@ -192,5 +196,22 @@ export default {
   scale: 3;
   translate: 0 -22%;
   transition: scale 1s;
+}
+
+@container (min-width: 600px) {
+  .ttt-body {
+    grid-template-columns: repeat(3, 20vmin);
+  }
+  .ttt-box {
+    width: 58vmin;
+    height: 58vmin;
+  }
+  .ttt-span {
+    font-size: 15vmin;
+    translate: 0 0%;
+  }
+  .circle {
+    translate: 0 -13%;
+  }
 }
 </style>
