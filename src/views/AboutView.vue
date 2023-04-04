@@ -91,7 +91,7 @@
         <div class="about_sample-wrapper">
           <div class="about_sample-shadow"></div>
           <component :is="compName" class="about_sample-sample" />
-          <div class="about_sample-close" @click="currentSample = false">x</div>
+          <div class="about_sample-close" @click="closeSample">x</div>
         </div>
       </label>
     </div>
@@ -164,8 +164,11 @@ export default {
       if (this.currentSample) {
         const el = document.getElementById(ref(elId).value);
         el.scrollIntoView();
-        console.log(document.getElementById(ref(elId).value));
       }
+    },
+    closeSample() {
+      this.currentSample = false;
+      // e.target.parentElement.blur();
     },
   },
 };
@@ -324,33 +327,39 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  gap: 4vmax;
 
   height: 100vh;
   overflow: scroll;
-  padding-block: 5rem;
+  padding-block: 7rem;
 }
 
 .about_sample-label {
-  margin: 2rem;
+  _border: 2px solid red;
 }
 
 .about_sample-wrapper {
-  width: 40vmax;
-  height: 40vmin;
+  width: 40vw;
+  max-width: 500px;
+  height: 40vh;
   position: relative;
   transform-origin: center right;
   transform: rotate3d(-1.5, -1, 0.3, 40deg);
   transform-style: preserve-3d;
   transition: transform 0.4s ease-in-out;
   cursor: pointer;
+  margin-inline: 2rem;
 }
 
-.about_sample-wrapper:hover {
-  transform: rotate3d(-1.5, -1, 0.2, 30deg) scale(1.05);
+@media (hover: hover) {
+  .about_sample-wrapper:hover {
+    transform: rotate3d(-1.5, -1, 0.2, 30deg) scale(1.05);
+  }
 }
 
 .about_sample-shadow {
   width: inherit;
+  max-width: 500px;
   height: inherit;
   background: black;
   opacity: 0.5;
@@ -363,8 +372,9 @@ export default {
 
 .about_sample-sample {
   transform-origin: 0% 0%;
-  max-width: 100vmax;
-  min-width: 100vw;
+
+  width: 100vw;
+  max-width: 1250px;
   min-height: fit-content;
   scale: 0.4;
   position: absolute;
@@ -372,12 +382,14 @@ export default {
   left: 0;
   overflow: hidden;
   opacity: 0.8;
+  filter: grayscale(0.6);
   transition: opacity 0.5s ease-in-out;
   pointer-events: none;
 }
 
 .about_sample-wrapper:hover > .about_sample-sample {
   opacity: 1;
+  filter: grayscale(0);
 }
 
 .about_sample-radio {
@@ -388,7 +400,8 @@ export default {
   transform: rotate3d(0, 0, 0, 0deg);
   width: 70vw;
   height: 70vh;
-  margin: 4rem;
+  margin: 15vw;
+  max-width: 100vw;
 
   cursor: auto;
 }
@@ -399,6 +412,7 @@ export default {
   opacity: 1;
   pointer-events: all;
   _box-shadow: 2rem 1rem 5rem 0rem;
+  max-width: 100vw;
 }
 
 .about_sample-radio:checked ~ .about_sample-wrapper > .about_sample-shadow {

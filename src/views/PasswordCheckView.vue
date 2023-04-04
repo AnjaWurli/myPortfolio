@@ -57,12 +57,12 @@ export default {
       wrong: "❌",
       right: "✅",
       checks: [
-        { description: "Passwords are equal", id: "equal", check: "❌" },
-        { description: "Lower Case Letters", id: "low", check: "❌" },
-        { description: "Upper Case Letters", id: "up", check: "❌" },
-        { description: "Contains Numbers", id: "num", check: "❌" },
-        { description: "Contains Special Characters", id: "spec", check: "❌" },
-        { description: "At least 10 characters long", id: "long", check: "❌" },
+        { description: "passwords are equal", id: "equal", check: "❌" },
+        { description: "lower case letters", id: "low", check: "❌" },
+        { description: "upper case letters", id: "up", check: "❌" },
+        { description: "contains numbers", id: "num", check: "❌" },
+        { description: "special characters", id: "spec", check: "❌" },
+        { description: "min. 10 characters", id: "long", check: "❌" },
       ],
     };
   },

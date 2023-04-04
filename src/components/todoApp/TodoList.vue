@@ -11,9 +11,10 @@
           class="todo-style_checkbox-todo"
           type="checkbox"
           v-model="todo.done"
-          :id="todo"
+          :id="todo.id"
+          @change="checkElements"
         />
-        <label :for="todo" class="todo-style_label">{{
+        <label :for="todo.id" class="todo-style_label">{{
           todo.description
         }}</label>
       </li>
@@ -25,5 +26,11 @@
 export default {
   name: "TodoList",
   props: { todos: Object },
+
+  methods: {
+    checkElements() {
+      return this.$emit("checkElements");
+    },
+  },
 };
 </script>

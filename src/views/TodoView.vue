@@ -9,7 +9,7 @@
         <filter-options @filterElements="handleFilter" />
         <remove-btn :todos="todos" @remove="handleRemove" />
       </section>
-      <todo-list :todos="filtered" />
+      <todo-list :todos="filtered" @checkElements="handleFilter" />
     </main>
   </body>
 </template>
@@ -35,10 +35,16 @@ export default {
         { id: 2, description: "Dont get confused", done: true },
       ],
       filtered: [],
+      currentFilter: "All",
     };
   },
   methods: {
     handleFilter(currentFilter) {
+      if (currentFilter) {
+        this.currentFilter = currentFilter;
+      } else {
+        currentFilter = this.currentFilter;
+      }
       this.filtered = this.todos.filter((todo) => {
         if (currentFilter === "Done") {
           return todo.done === true;
