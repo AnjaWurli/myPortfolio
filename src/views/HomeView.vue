@@ -7,7 +7,8 @@
         src="../assets/pics/laptop.jpg"
       />
     </div>
-    <div></div>
+    <div id="test"></div>
+    <div id="test"></div>
   </main>
 </template>
 
@@ -18,12 +19,10 @@ export default {
   methods: {
     handleScroll() {
       // besser mit Flexbox?
+
       const entry = document.querySelector("#entry_pic");
       let entryPos = entry.getBoundingClientRect().top;
-      let scrollFactor = 1 - Math.abs(entryPos) / window.innerHeight;
-
-      const entryHeight = entry.getBoundingClientRect().height;
-      console.log(entryPos, scrollFactor, entryHeight);
+      let scrollFactor = 1 - (Math.abs(entryPos) / window.innerHeight) * 4;
 
       if (scrollFactor < 1 && scrollFactor > 0.3) {
         entry.style.setProperty("--scroll-factor", scrollFactor);
@@ -56,6 +55,12 @@ export default {
 }
 
 .home {
-  height: 200vh;
+  _height: 200vh;
+}
+
+#test {
+  width: 500px;
+  height: 50vh;
+  background-color: black;
 }
 </style>
