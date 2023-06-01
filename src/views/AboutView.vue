@@ -232,7 +232,7 @@ export default {
 
 .about_pic,
 .about_pic-other {
-  background-image: url("../assets/me1.png");
+  background-image: url("../assets/pics/me1.png");
   width: 30vw;
   height: 95vh;
   background-size: cover;
@@ -242,7 +242,7 @@ export default {
 }
 
 .about_pic-other {
-  background-image: url("../assets/me2.png");
+  background-image: url("../assets/pics/me2.png");
   position: absolute;
   top: 0;
   _background-position: 2rem 0;
