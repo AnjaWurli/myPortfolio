@@ -5,6 +5,7 @@
     @mousemove="update"
     @touchmove="update"
   >
+    <!--
     <button
       class="lightswitch_button"
       :class="{ 'lightswitch_button-dark': lightswitchOff }"
@@ -12,7 +13,7 @@
     >
       Light
     </button>
-
+   
     <nav id="main-nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
@@ -24,7 +25,7 @@
       |
       <router-link :to="{ name: 'clock' }">Clock</router-link>
     </nav>
-
+-->
     <router-view />
   </body>
 </template>
