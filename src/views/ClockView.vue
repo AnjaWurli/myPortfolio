@@ -2,11 +2,32 @@
   <body class="clock_body">
     <div id="clock">
       <div id="center"></div>
-      <div class="pointer" id="hourpointer"></div>
-      <div class="pointer" id="minpointer"></div>
-      <div class="pointer" id="secpointer"></div>
+      <div
+        class="pointer"
+        id="hourpointer"
+        :style="'transform: rotate(' + (h * 360) / 12 + 'deg)'"
+      ></div>
+      <div
+        class="pointer"
+        id="minpointer"
+        :style="'transform: rotate(' + (min * 360) / 60 + 'deg)'"
+      ></div>
+      <div
+        class="pointer"
+        id="secpointer"
+        :style="'transform: rotate(' + (s * 360) / 60 + 'deg)'"
+      ></div>
     </div>
-    <p class="clock_p">{{ localTime }}</p>
+    <p class="clock_p">
+      {{
+        h +
+        (s % 2 === 0 ? ":" : " ") +
+        min +
+        (s % 2 === 0 ? ":" : " ") +
+        (s < 10 ? "0" : "") +
+        s
+      }}
+    </p>
   </body>
 </template>
 
@@ -14,15 +35,17 @@
 export default {
   data() {
     return {
-      h: new Date().getHours(),
-      min: new Date().getMinutes(),
-      s: new Date().getSeconds(),
-      localTime: " ",
+      h: 0,
+      min: 0,
+      s: 0,
     };
   },
   created() {
     setInterval(() => {
-      this.localTime = new Date();
+      let d = new Date();
+      this.h = d.getHours();
+      this.min = d.getMinutes();
+      this.s = d.getSeconds();
     }, 1000);
   },
 };
