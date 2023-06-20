@@ -13,7 +13,7 @@
     >
       Light
     </button>
-   
+   -->
     <nav id="main-nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
@@ -22,10 +22,10 @@
       <router-link :to="{ name: 'colormixer' }">Color-Mixer</router-link> |
       <router-link :to="{ name: 'counter' }">Counter</router-link> |
       <router-link :to="{ name: 'passwordcheck' }">Password-Check</router-link>
-      |
+      | <router-link :to="{ name: 'tetris' }">Tetris</router-link> |
       <router-link :to="{ name: 'clock' }">Clock</router-link>
     </nav>
--->
+
     <router-view />
   </body>
 </template>
